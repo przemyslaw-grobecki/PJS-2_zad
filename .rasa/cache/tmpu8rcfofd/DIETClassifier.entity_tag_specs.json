@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-dis_decorated",
+      "2": "I-dis_decorated",
+      "3": "L-dis_decorated",
+      "4": "U-dis_decorated",
+      "5": "B-dish",
+      "6": "I-dish",
+      "7": "L-dish",
+      "8": "U-dish",
+      "9": "B-dish_decorated",
+      "10": "I-dish_decorated",
+      "11": "L-dish_decorated",
+      "12": "U-dish_decorated",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-dis_decorated": 1,
+      "I-dis_decorated": 2,
+      "L-dis_decorated": 3,
+      "U-dis_decorated": 4,
+      "B-dish": 5,
+      "I-dish": 6,
+      "L-dish": 7,
+      "U-dish": 8,
+      "B-dish_decorated": 9,
+      "I-dish_decorated": 10,
+      "L-dish_decorated": 11,
+      "U-dish_decorated": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]

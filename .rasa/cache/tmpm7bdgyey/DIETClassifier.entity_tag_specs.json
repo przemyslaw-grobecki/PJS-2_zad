@@ -1,0 +1,28 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-dish",
+      "2": "I-dish",
+      "3": "L-dish",
+      "4": "U-dish",
+      "5": "B-ingredient",
+      "6": "I-ingredient",
+      "7": "L-ingredient",
+      "8": "U-ingredient",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-dish": 1,
+      "I-dish": 2,
+      "L-dish": 3,
+      "U-dish": 4,
+      "B-ingredient": 5,
+      "I-ingredient": 6,
+      "L-ingredient": 7,
+      "U-ingredient": 8,
+      "O": 0
+    },
+    "num_tags": 9
+  }
+]

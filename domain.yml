@@ -1,13 +1,42 @@
 version: "3.1"
 
+actions:
+  - action_order_dish
+  - action_sum_up_order
+  - action_confirm_order
+  - action_list_menu
+  - action_provide_opening_hours
+
 intents:
   - greet
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
+  - ask_menu
+  - ask_recomendations
+  - order_dish
+  - ask_opening_hours
+
+entities:
+  - dish
+  - dish_decorated
+
+slots:
+  order: 
+    type: list
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: dish
+
+  order_decorated:
+    type: list
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: dish_decorated
+
 
 responses:
   utter_greet:
@@ -28,6 +57,9 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_ask_for_order:
+  - text: "What would You like to order Sir/Mam?"
 
 session_config:
   session_expiration_time: 60

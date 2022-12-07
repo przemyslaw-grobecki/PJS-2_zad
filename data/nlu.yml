@@ -1,5 +1,12 @@
 version: "3.1"
 
+actions:
+  - action_order_dish
+  - action_sum_up_order
+  - action_confirm_order
+  - action_list_menu
+  - action_provide_opening_hours
+
 nlu:
 - intent: greet
   examples: |
@@ -38,6 +45,14 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - allright
+    - let it be
+    - Yes that is correct.
+    - Ok.
+    - I confirm.
+    - Looks legit, thanks.
+    - That's it.
+    - Everything is alright.
 
 - intent: deny
   examples: |
@@ -48,40 +63,55 @@ nlu:
     - don't like that
     - no way
     - not really
+    - Actually, I would like to change something.
+    - That is not correct.
+    - No
+    - I think you misunderstood me.
+    - No, not at all.
+    - One item is missing.
+    - You forgot about my [Burger](dish).
 
-- intent: mood_great
+- intent: ask_menu
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - What do you serve?
+    - What can I have here?
+    - What is on the menu today?
+    - What is available today?
+    - Please tell me, what is to choose from?
+    - Could I ask for menu?
+    - menu
+    - dishes
 
-- intent: mood_unhappy
+- intent: ask_opening_hours
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - What are Your opening hours?
+    - Are You open on Thursdays?
+    - Are Sundays your day off?
+    - Can we eat here on march 11'th?
+    - Is it okey to order on Saturdays?
+
+- intent : ask_recomendations
+  examples: |
+    - What do you recommend?
+    - Surprise me!
+    - What is worth checking out?
+    - What are your specialties?
+
+- intent: order_dish
+  examples: |
+    - I would like [Pizza](dish), please.
+    - Why not [Hot-Dog](dish)?
+    - [Burger](dish)
+    - It will be [Lasagne](dish) for me.
+    - Ok, [Tiramisu](dish) then.
+    - I will have [Spaghetti Carbonara](dish).
+    - Bring me [Burger](dish).
+    - [Tiramisu without Milk](dis_decorated) and [Vegan Burger](dish_decorated) for me.
+    - Also, [Spaghetti Carbonara with extra cheese](dish_decorated) to top off.
+    - (dish), (dish), (dish), (dish).
+    - I order [Pizza with additional Pineapple](dish_decorated).
+    - I would like [Burger without no cheese](dish_decorated).
+    - [Hot-Dog with extra mustard](dish_decorated).
 
 - intent: bot_challenge
   examples: |
