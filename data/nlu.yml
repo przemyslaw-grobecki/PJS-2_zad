@@ -119,3 +119,10 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: ready
+  examples: |
+    - I am ready.
+    - Right now I can start the order.
+    - I would like to order now.
+    - Can we preceed to ordering?

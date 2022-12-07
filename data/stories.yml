@@ -34,12 +34,59 @@ stories:
   - intent: affirm
   - action: utter_ask_for_order
   - intent: ask_menu
-  - action: action_ask_menu
+  - action: action_list_menu
   - intent: order_dish
   - action: action_order_dish
   - intent: deny
   - action: action_confirm_order
   - intent: deny
+  - action: utter_ask_for_order
+  - intent: order_dish
+  - action: action_order_dish
+  - intent: deny
+  - action: action_confirm_order
+  - intent: affirm
+  - action: action_sum_up_order
+
+- story: order dish 4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_menu
+  - action: action_list_menu
+  - intent: affirm
+  - action: utter_ask_for_order
+  - intent: order_dish
+  - action: action_order_dish
+  - intent: deny
+  - action: action_confirm_order
+  - intent: affirm
+  - action: action_sum_up_order
+
+- story: order dish 5
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_menu
+  - action: action_list_menu
+  - intent: deny
+  - action: utter_ask_when_ready
+  - intent: order_dish
+  - action: action_order_dish
+  - intent: deny
+  - action: action_confirm_order
+  - intent: affirm
+  - action: action_sum_up_order
+
+- story: order dish 6
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_menu
+  - action: action_list_menu
+  - intent: deny
+  - action: utter_ask_when_ready
+  - intent: ready
   - action: utter_ask_for_order
   - intent: order_dish
   - action: action_order_dish
