@@ -11,3 +11,48 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Show menu when asked for it
+  steps:
+  - intent: ask_menu
+  - action: action_list_menu
+
+- rule: Show opening hours when asked for it
+  steps:
+  - intent: ask_opening_hours
+  - action: action_provide_opening_hours
+
+- rule: Anytime ready, ask for order
+  steps:
+  - intent: ready
+  - action: utter_ask_for_order
+
+- rule: confirm order
+  steps:
+  - action: action_order_dish
+  - intent: deny
+  - action: action_confirm_order
+
+- rule: sum up order
+  steps:
+  - action: action_confirm_order
+  - intent: affirm
+  - action: action_sum_up_order
+
+- rule: do not sum up order
+  steps:
+  - action: action_confirm_order
+  - intent: deny
+  - action: utter_ask_for_order
+
+- rule: ask for order after list menu
+  steps:
+  - action: action_list_menu
+  - intent: affirm
+  - action: utter_ask_for_order
+
+- rule: ask for ready after list menu
+  steps:
+  - action: action_list_menu
+  - intent: deny
+  - action: utter_ask_when_ready

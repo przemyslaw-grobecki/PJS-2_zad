@@ -111,6 +111,8 @@ nlu:
     - (dish), (dish), (dish), (dish).
     - I order [Pizza with additional Pineapple](dish_decorated).
     - I would like [Burger without no cheese](dish_decorated).
+    - [Burger without salad](dish_decorated)
+    - I will have [Vegan Hot-Dog](dish_decorated) please.
     - [Hot-Dog with extra mustard](dish_decorated).
 
 - intent: bot_challenge
@@ -126,3 +128,12 @@ nlu:
     - Right now I can start the order.
     - I would like to order now.
     - Can we preceed to ordering?
+
+- intent: thanks
+  examples: |
+    - Thanks
+    - Thank You very much
+    - The pleasure is mine
+    - How nice!
+    - Very cool
+    - Good, thank You.

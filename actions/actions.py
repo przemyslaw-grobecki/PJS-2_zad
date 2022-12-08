@@ -4,66 +4,13 @@ from rasa_sdk.events import SlotSet
 from typing import Any, Dict, Iterator, List, Optional, Text
 from fuzzywuzzy import fuzz
 import json
+import os
 
 #Load config
-#menu = {}
-#with open("menu.json") as menuFile:
-#    menu = json.load(menuFile)
-#
-#openingHours = {}
-#with open("opening_hours.json") as openingHoursFile:
-#    openingHours = json.load(openingHoursFile)
-
-#order = []
-
-menu = {
-    "items": [
-      {
-        "name": "Lasagne",
-        "price": 16,
-        "preparation_time": 1
-      },
-      {
-        "name": "Pizza",
-        "price": 12,
-        "preparation_time": 0.5
-      },
-      {
-        "name": "Hot-dog",
-        "price": 4,
-        "preparation_time": 0.1
-      },
-      {
-        "name": "Burger",
-        "price": 12.5,
-        "preparation_time": 0.2
-      },
-      {
-        "name": "Spaghetti Carbonara",
-        "price": 15,
-        "preparation_time": 0.5
-      },
-      {
-        "name": "Tiramisu",
-        "price": 11,
-        "preparation_time": 0.15
-      }
-    ]
-  }
-
-opening_hours = {
-    "items": 
-       {
-         "Monday": {"open":8,"close":20 },
-         "Tuesday": {"open":8,"close":20 },
-         "Wednesday": {"open":10,"close":16 },
-         "Thursday": {"open":8,"close":20 },
-         "Friday": {"open":8,"close":20 },
-         "Saturday": {"open":10,"close":16 },
-         "Sunday": {"open":0,"close":0 }
-       }  
-   }
-   
+menuFile = open("../rasa_chat_bot/actions/menu.json", 'r')
+menu = json.load(menuFile)
+openingHoursFile = open("../rasa_chat_bot/actions/opening_hours.json", 'r')
+openingHours = json.load(openingHoursFile)
 current_receipt = []
 
 def CheckIfOpen() -> bool:
@@ -113,7 +60,7 @@ class ActionOrderDish(Action):
         
         
         dispatcher.utter_message(text="I have added {} to your receipt sir/mam. Anything else?".format(output_message))
-        return []
+        return [SlotSet("order", []), SlotSet("order_decorated",[])]
 
 
 class ActionListMenu(Action):
@@ -161,7 +108,8 @@ class ActionSumUpTheOrder(Action):
             total_spend+=dish["price"]
             total_time+=dish["preparation_time"]
 
-        dispatcher.utter_message(text="Thank You for ordering in our restaurant. We inform You that your shiment will be ready for transport in {} minutes. The total cost is {}$. Have a nice meal :-)".format(total_time*60, total_spend))
+        dispatcher.utter_message(text="Thank You for ordering in our restaurant. We inform You that your shipment will be ready for transport in {} minutes. The total cost is {}$. Have a nice meal :-)".format(total_time*60, total_spend))
+        current_receipt.clear()
         return []
 
 class ActionProvideOpeningHours(Action):

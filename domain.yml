@@ -18,6 +18,7 @@ intents:
   - order_dish
   - ask_opening_hours
   - ready
+  - thanks
 
 entities:
   - dish
@@ -64,6 +65,9 @@ responses:
 
   utter_ask_when_ready:
   - text: "Please, let me know when You will be ready."
+
+  utter_respond_to_thanks:
+  - text: "You are welcome :-)"
 
 session_config:
   session_expiration_time: 60
