@@ -4,7 +4,7 @@ from rasa_sdk.events import SlotSet
 from typing import Any, Dict, Iterator, List, Optional, Text
 from fuzzywuzzy import fuzz
 import json
-import os
+import datetime
 
 #Load config
 menuFile = open("../rasa_chat_bot/actions/menu.json", 'r')
@@ -14,10 +14,8 @@ openingHours = json.load(openingHoursFile)
 current_receipt = []
 
 def CheckIfOpen() -> bool:
-    return True
-
-def CheckIfInMenu() -> bool:
-    return True
+    current_time = datetime.datetime.now()
+    return current_time.hour > openingHours["items"][current_time.weekday()]["open"] and current_time.hour < openingHours["items"][current_time.weekday()]["close"]
 
 class ActionOrderDish(Action):
     def name(self) -> Text:
@@ -29,9 +27,7 @@ class ActionOrderDish(Action):
         if not CheckIfOpen():
             dispatcher.utter_message(text="Sorry, currently we are closed. Our Opening hours are: {....}")
             return []
-        if not CheckIfInMenu(): 
-            dispatcher.utter_message(text="I did not find one of your order dishes in our menu. Please, try ordering again.")
-            return []
+        
         order_decorated = tracker.get_slot("order_decorated")
         order = tracker.get_slot("order")
         output_message = []
@@ -58,7 +54,10 @@ class ActionOrderDish(Action):
                         current_receipt.append(dish_decorated)     
             output_message.extend(order_decorated)
         
-        
+        if output_message.count() == 0 :
+            dispatcher.utter_message(text="I did not find one of your order dishes in our menu. Please, try ordering again.")
+            return [SlotSet("order", []), SlotSet("order_decorated",[])]
+            
         dispatcher.utter_message(text="I have added {} to your receipt sir/mam. Anything else?".format(output_message))
         return [SlotSet("order", []), SlotSet("order_decorated",[])]
 
