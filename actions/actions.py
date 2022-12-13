@@ -9,13 +9,14 @@ import datetime
 #Load config
 menuFile = open("../rasa_chat_bot/actions/menu.json", 'r')
 menu = json.load(menuFile)
-openingHoursFile = open("../rasa_chat_bot/actions/opening_hours.json", 'r')
-openingHours = json.load(openingHoursFile)
+opening_hours_file = open("../rasa_chat_bot/actions/opening_hours.json", 'r')
+opening_hours = json.load(opening_hours_file)
 current_receipt = []
 
 def CheckIfOpen() -> bool:
     current_time = datetime.datetime.now()
-    return current_time.hour > openingHours["items"][current_time.weekday()]["open"] and current_time.hour < openingHours["items"][current_time.weekday()]["close"]
+    today = list(opening_hours["items"].keys())[current_time.weekday()]
+    return current_time.hour > opening_hours["items"][today]["open"] and current_time.hour < opening_hours["items"][today]["close"] #To test comment this out and replace with True
 
 class ActionOrderDish(Action):
     def name(self) -> Text:
@@ -25,7 +26,7 @@ class ActionOrderDish(Action):
         tracker: Tracker, 
         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         if not CheckIfOpen():
-            dispatcher.utter_message(text="Sorry, currently we are closed. Our Opening hours are: {....}")
+            dispatcher.utter_message(text="Sorry, currently we are closed. Our Opening hours are: {}".format(opening_hours))
             return []
         
         order_decorated = tracker.get_slot("order_decorated")
@@ -36,11 +37,13 @@ class ActionOrderDish(Action):
             dispatcher.utter_message(text="I did not find one of your order dishes in our menu. Please, try ordering again.")
             return []
         
+        dish_found = False
         if order:
             for item in order:
                 for dish in menu["items"]:
                     if(fuzz.ratio(dish["name"].lower(), item.lower()) > 85):
-                        current_receipt.append(dish)     
+                        current_receipt.append(dish)
+                        dish_found = True     
             output_message.extend(order)
             
         if order_decorated:
@@ -51,13 +54,18 @@ class ActionOrderDish(Action):
                             **dish,
                             "notes": item 
                         }
-                        current_receipt.append(dish_decorated)     
+                        current_receipt.append(dish_decorated) 
+                        dish_found = True        
             output_message.extend(order_decorated)
         
-        if output_message.count() == 0 :
+        if not dish_found:
             dispatcher.utter_message(text="I did not find one of your order dishes in our menu. Please, try ordering again.")
             return [SlotSet("order", []), SlotSet("order_decorated",[])]
-            
+
+        if len(output_message) == 0 :
+            dispatcher.utter_message(text="I did not find one of your order dishes in our menu. Please, try ordering again.")
+            return [SlotSet("order", []), SlotSet("order_decorated",[])]
+
         dispatcher.utter_message(text="I have added {} to your receipt sir/mam. Anything else?".format(output_message))
         return [SlotSet("order", []), SlotSet("order_decorated",[])]
 

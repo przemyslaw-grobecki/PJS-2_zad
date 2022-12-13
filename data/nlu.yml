@@ -114,6 +114,9 @@ nlu:
     - [Burger without salad](dish_decorated)
     - I will have [Vegan Hot-Dog](dish_decorated) please.
     - [Hot-Dog with extra mustard](dish_decorated).
+    - I would like [Beef](dish).
+    - I will have [Salade](dish).
+    - Bring me [Tofu](dish).
 
 - intent: bot_challenge
   examples: |
